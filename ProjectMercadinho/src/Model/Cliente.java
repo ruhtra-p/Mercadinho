@@ -11,9 +11,6 @@ public class Cliente {
 	private String endereco;
 	private String dataNasc;
 	
-	
-	
-	
 	public Cliente() {
 		super();
 	}

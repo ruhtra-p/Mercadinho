@@ -48,7 +48,4 @@ public class Fornecedor {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
-	
-
 }

@@ -5,7 +5,17 @@ import java.util.ArrayList;
 
 import ConnectionFactory.ConnectionDatabase;
 import DAO.ClienteDAO;
+import DAO.FornecedorDAO;
+import DAO.FuncionarioDAO;
+import DAO.ProdutoDAO;
+import DAO.Produto_VendaDAO;
+import DAO.VendaDAO;
 import Model.Cliente;
+import Model.Fornecedor;
+import Model.Funcionario;
+import Model.Produto;
+import Model.Produto_Venda;
+import Model.Venda;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -28,28 +38,50 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[]  args) {
-		
 		Connection con = ConnectionDatabase.getConnection();
 		ConnectionDatabase.closeConnection(con);
 		
-		Cliente cliente = new Cliente();
-		ClienteDAO clienteDAO = new ClienteDAO();
-		ArrayList<Cliente> clientes = new ArrayList<>();
+
+		//Produto_VENDA
+		Produto_Venda produtoVenda = new Produto_Venda();
+		Produto_VendaDAO pVendaDAO = new Produto_VendaDAO();
+		ArrayList<Produto_Venda> produtos_Vendas = new ArrayList<>();
 		
-		cliente.setNome("camila");
-		clientes.addAll(clienteDAO.search(cliente));
-		
-		for(int i = 0; i < clientes.size(); i++) {
-			cliente = clientes.get(i);
-			System.out.println("");
-			System.out.print(cliente.getId()+ " | ");
-			System.out.print(cliente.getNome()+ " | ");
-			System.out.print(cliente.getEmal()+ " | ");
-			System.out.print(cliente.getGenero()+ " | ");
-			System.out.print(cliente.getTelefone()+ " | ");
-		}
+		//----TESTES DE CREATE
+        /*produtoVenda.setCodeProduto("17");
+        produtoVenda.setCodeVenda("67");
+        produtoVenda.setQuantidade("7");
+        produtoVenda.setId("129");*/
+		//pVendaDAO.create(produtoVenda);
 		
 		
+		//----TESTE DE READ
+		//produtos_Vendas.addAll(pVendaDAO.read());
+		
+		
+		//----TESTES DE UPDATE
+		//pVendaDAO.update(produtoVenda);
+		
+		
+		//----TESTES DE DELETE
+		/*produtoVenda.setId("129");
+		pVendaDAO.delete(produtoVenda);*/
+		
+		
+		//----TEST DE SEARCH
+		/*produtoVenda.setQuantidade("6");
+		produtos_Vendas.addAll(pVendaDAO.search(produtoVenda));*/
+		
+		
+	/*	for(int i = 0; i < produtos_Vendas.size(); i++) {
+			produtoVenda = produtos_Vendas.get(i);
+    System.out.println("");
+    System.out.print(produtoVenda.getId() + " | ");
+    System.out.print(produtoVenda.getCodeProduto() + " | ");
+    System.out.print(produtoVenda.getCodeVenda() + " | ");
+    System.out.print(produtoVenda.getQuantidade() + " | ");
+		}*/
+   
 		launch(args);
 	}
 }
