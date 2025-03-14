@@ -13,7 +13,9 @@ public class Produto {
 	private String unidadeDeMed;
 	private String precoUn;
 	private String estoque;
+	private String precoTotal;
 	
+
 	public Produto(String id, String codeFornecedor, String nome, String codBarra, String lote, String dataFab,
 			String dataVal, String marca, String categoria, String unidadeDeMed, String precoUn, String estoque) {
 		super();
@@ -29,6 +31,12 @@ public class Produto {
 		this.unidadeDeMed = unidadeDeMed;
 		this.precoUn = precoUn;
 		this.estoque = estoque;
+	}
+	public String getPrecoTotal() {
+		return precoTotal;
+	}
+	public void setPrecoTotal(String precoTotal) {
+		this.precoTotal = precoTotal;
 	}
 	public Produto() {
 		super();

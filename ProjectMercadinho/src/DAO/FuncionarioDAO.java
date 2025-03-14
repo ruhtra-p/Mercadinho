@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import ConnectionFactory.ConnectionDatabase;
 import Model.Funcionario;
+import Util.Alerts;
+import javafx.scene.control.Alert.AlertType;
 import Model.Funcionario;
 
 public class FuncionarioDAO {
@@ -173,5 +175,75 @@ public class FuncionarioDAO {
 			ConnectionDatabase.closeConnection(con, stmt, rs);
 		}
 		return funcionarios;
+	}
+	
+	
+	public Funcionario autenticarUser(String cpf, String senha) {
+		Connection con = ConnectionDatabase.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs =  null;
+		Funcionario funcionario =  new Funcionario();
+		
+			try {
+				stmt = con.prepareStatement("select * from Funcionario where cpfFuncionario = ? and senha = ?");
+				stmt.setString(1, cpf);
+				stmt.setString(2, senha);
+				rs = stmt.executeQuery();
+				
+				while(rs.next()) {					
+					funcionario.setId(rs.getString(1));
+					funcionario.setNome(rs.getString(2));
+					funcionario.setSenha(rs.getString(3));
+					funcionario.setCpf(rs.getString(4));
+					funcionario.setEmail(rs.getString(5));
+					funcionario.setTelefone(rs.getString(6));
+					funcionario.setGenero(rs.getString(7));
+					funcionario.setEndereco(rs.getString(8));
+					funcionario.setDataNasc(rs.getString(9));
+					funcionario.setCargo(rs.getString(10));
+					funcionario.setSalario(rs.getString(11));
+					funcionario.setDataDeAdmissao(rs.getString(12));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				Alerts.showAlert("Erro!", "Erro de Conexão", "Falha ao consultar informações no banco de dados", AlertType.ERROR);
+				throw new RuntimeException("Erro de autenticação", e);
+			}finally {
+				ConnectionDatabase.closeConnection(con, stmt, rs);
+			}	
+			
+		return funcionario;
+	}
+	
+    public String getTotalVendido(String id) {
+    	
+    	Connection con = ConnectionDatabase.getConnection();
+    	PreparedStatement stmt = null;
+    	ResultSet rs = null;
+    	String TotalVendido = null;
+    	
+    	try {
+    		
+			stmt = con.prepareStatement("select SUM(precoTotal) as TotalVendido from Venda where codeFuncionario = ?");
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				TotalVendido = rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			Alerts.showAlert("Erro!", "Erro de conexão", "Falha ao consultar informações no banco de dados.", AlertType.ERROR);
+			throw new RuntimeException("Erro!", e);
+		} finally {
+			ConnectionDatabase.closeConnection(con, stmt, rs);
+		}
+    	
+		return TotalVendido;
+    }
+	private PreparedStatement setString(int i, String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

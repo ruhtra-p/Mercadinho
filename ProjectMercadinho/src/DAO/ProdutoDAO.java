@@ -161,4 +161,66 @@ public class ProdutoDAO {
         }
         return produtos;
     }
+    
+    public ArrayList<Produto> getByEstoque() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Produto> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("select * from Produto where estoque < 500");
+            rs = stmt.executeQuery();
+            int i = 1;
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(""+ i);
+                produto.setCodeFornecedor(rs.getString(2));
+                produto.setNome(rs.getString(3));
+                produto.setCodBarra(rs.getString(4));
+                produto.setLote(rs.getString(5));
+                produto.setDataFab(rs.getString(6));
+                produto.setDataVal(rs.getString(7));
+                produto.setMarca(rs.getString(8));
+                produto.setCategoria(rs.getString(9));
+                produto.setUnidadeDeMed(rs.getString(10));
+                produto.setPrecoUn(rs.getString(11));
+                produto.setEstoque(rs.getString(12));
+                produtos.add(produto);
+                i++;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler informações de Produto!");
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return produtos;
+    }
+    
+    public ArrayList<String> readProdutoByNome() {
+    	Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> produtos = new ArrayList<>();
+    	
+        try {
+            stmt = con.prepareStatement("select nomeProduto from produto");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+            	String nome;
+            	nome = rs.getString(1);
+            	produtos.add(nome);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler os produtos!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return produtos;
+    }
+    
+    
+
 }

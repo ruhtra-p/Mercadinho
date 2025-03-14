@@ -50,10 +50,10 @@ public class ClienteDAO {
 			stmt = con.prepareStatement("select * from Cliente");
 			rs = stmt.executeQuery();
 
-
+			int i=1;
 			while(rs.next()) {
 				Cliente cliente = new Cliente();
-				cliente.setId(rs.getString(1));
+				cliente.setId(""+ i);
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmal(rs.getString(4));
@@ -63,6 +63,7 @@ public class ClienteDAO {
 				cliente.setDataNasc(rs.getString(8));
 
 				clientes.add(cliente);
+				i++;
 			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,7 +80,7 @@ public class ClienteDAO {
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = con.prepareStatement("update cliente set nomeCliente = ?, cpfCliente = ?, emailCliente = ?, telefoneCliente = ?, generoCliente = ?, enderecoCliente = ?, dataNascCliente = ? where idCliente = ? or cpfCliente = ?");
+			stmt = con.prepareStatement("update cliente set nomeCliente = ?, cpfCliente = ?, emailCliente = ?, telefoneCliente = ?, generoCliente = ?, enderecoCliente = ?, dataNascCliente = ? where cpfCliente = ?");
 			stmt.setString(1, cliente.getNome());
 			stmt.setString(2, cliente.getCpf());
 			stmt.setString(3, cliente.getEmal());
@@ -87,8 +88,7 @@ public class ClienteDAO {
 			stmt.setString(5, cliente.getGenero());
 			stmt.setString(6, cliente.getEndereco());
 			stmt.setString(7, cliente.getDataNasc());
-			stmt.setString(8, cliente.getId());
-			stmt.setString(9, cliente.getCpf());
+			stmt.setString(8, cliente.getCpf());
 
 			stmt.executeUpdate();
 			System.out.println("Atualizado- com sucesso!");
@@ -156,4 +156,27 @@ public class ClienteDAO {
 		}
 		return clientes;
 	}
+	
+    public ArrayList<String> readClienteByNome() {
+    	Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<String> clientes = new ArrayList<>();
+    	
+        try {
+            stmt = con.prepareStatement("select nomeCliente from Cliente");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+            	String nome;
+            	nome = rs.getString(1);
+            	clientes.add(nome);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao ler os clientes!", e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return clientes;
+    }
 }

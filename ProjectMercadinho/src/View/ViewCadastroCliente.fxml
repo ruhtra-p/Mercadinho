@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.controllerCadastroCliente">
+   <children>
+      <Pane prefHeight="720.0" prefWidth="150.0" style="-fx-background-color: #8a2be2;" />
+      <Text layoutX="216.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRO CLIENTES">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Line endX="640.7999877929688" layoutX="365.0" layoutY="74.0" startX="-146.26663208007812" stroke="BLUEVIOLET" strokeWidth="4.0" />
+      <Button fx:id="btCancelar" alignment="BASELINE_LEFT" layoutX="791.0" layoutY="606.0" mnemonicParsing="false" onAction="#actionCancelar" prefHeight="50.0" prefWidth="225.0" style="-fx-background-color: #8a2be2; -fx-background-radius: 15;" styleClass="r" text="CANCELAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="69.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/mdi-light_delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btCadastrar" alignment="BASELINE_LEFT" layoutX="553.0" layoutY="606.0" mnemonicParsing="false" onAction="#actionCadastrar" prefHeight="50.0" prefWidth="222.0" style="-fx-background-color: #8a2be2; -fx-background-radius: 15;" styleClass="r" text="CADASTRAR" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="83.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/solar_clipboard-linear.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Text fx:id="skls" layoutX="218.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="627.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genero" wrappingWidth="124.6138916015625">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtNome" layoutX="219.0" layoutY="139.0" prefHeight="51.0" prefWidth="347.0" promptText="Nome" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Text layoutX="623.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="625.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF(sem pontuação)">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="222.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Nascimento">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text layoutX="221.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefone">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtCPF" layoutX="622.0" layoutY="139.0" prefHeight="51.0" prefWidth="386.0" promptText="cpf" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtTelefone" layoutX="220.0" layoutY="241.0" prefHeight="51.0" prefWidth="346.0" promptText="telefone" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtEmail" layoutX="623.0" layoutY="241.0" prefHeight="51.0" prefWidth="383.0" promptText="email" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <ChoiceBox fx:id="choiceGenero" layoutX="627.0" layoutY="347.0" prefHeight="52.0" prefWidth="297.0" />
+      <DatePicker fx:id="dpDataNasc" layoutX="222.0" layoutY="348.0" prefHeight="50.0" prefWidth="339.0" />
+      <TextField fx:id="txtEndereco" layoutX="222.0" layoutY="459.0" prefHeight="51.0" prefWidth="781.0" promptText="Insira  CPF ou Nome" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Text layoutX="222.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
