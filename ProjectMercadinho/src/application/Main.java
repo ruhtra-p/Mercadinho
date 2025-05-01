@@ -59,6 +59,7 @@ public class Main extends Application {
 			stage.centerOnScreen();
 			stage.setTitle("Menu principal");
 		}
+
 	}
 	
     public static void TelaHome() throws IOException {

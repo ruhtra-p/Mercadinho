@@ -19,7 +19,7 @@ public class VendaDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO Venda (codeCliente, codeFuncionario, formaDePagamento, dataVenda, desconto, precoTotal) VALUES (?, ? , ? , ? , ? , ?)");
+            stmt = con.prepareStatement("INSERT INTO Venda (codeCliente, codeFuncionario, formaDePagamento, dataVenda, desconto, precoTotal) VALUES (?, ? , ? , GETDATE(), ? , ?)");
             stmt.setString(1, venda.getCodeCliente());
             stmt.setString(2, venda.getCodeFuncionario());
             stmt.setString(3, venda.getFormaDePagamento());
@@ -153,4 +153,27 @@ public class VendaDAO {
         }
         return vendas;  
     }
+    //
+    public String readID() {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String idVenda = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM Venda/");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+            	idVenda = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao ler as vendas: " + e);
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+
+        return idVenda;
+    }
+    
 }

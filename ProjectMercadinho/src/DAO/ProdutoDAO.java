@@ -220,7 +220,43 @@ public class ProdutoDAO {
         }
         return produtos;
     }
-    
+    //====
+    public ArrayList<Produto> searchID(Produto produto1) {
+        Connection con = ConnectionDatabase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Produto> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("select * from Produto where nomeProduto like ? or codBarra like ?");
+            stmt.setString(1, "%" + produto1.getNome() + "%");
+            stmt.setString(2, "%" + produto1.getCodBarra() + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getString(1));
+                produto.setCodeFornecedor(rs.getString(2));
+                produto.setNome(rs.getString(3));
+                produto.setCodBarra(rs.getString(4));
+                produto.setLote(rs.getString(5));
+                produto.setDataFab(rs.getString(6));
+                produto.setDataVal(rs.getString(7));
+                produto.setMarca(rs.getString(8));
+                produto.setCategoria(rs.getString(9));
+                produto.setUnidadeDeMed(rs.getString(10));
+                produto.setPrecoUn(rs.getString(11));
+                produto.setEstoque(rs.getString(12));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao pesquisar Produto!");
+        } finally {
+            ConnectionDatabase.closeConnection(con, stmt, rs);
+        }
+        return produtos;
+    }
     
 
 }

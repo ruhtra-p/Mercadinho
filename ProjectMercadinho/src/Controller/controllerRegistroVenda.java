@@ -2,14 +2,19 @@ package Controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
 
 import DAO.ClienteDAO;
 import DAO.ProdutoDAO;
+import DAO.Produto_VendaDAO;
+import DAO.VendaDAO;
 import Model.Cliente;
 import Model.Produto;
+import Model.Produto_Venda;
+import Model.Venda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,7 +80,10 @@ public class controllerRegistroVenda implements Initializable{
     private TextField txtQuantidade;
 
     @FXML
-    private TextField txtTotalCompra;
+    private TextField txtValorTotal;
+    
+    @FXML
+    private TextField txtPrecoTotal;
 
     @FXML
     private TextField txtValorUN;
@@ -83,19 +91,96 @@ public class controllerRegistroVenda implements Initializable{
     @FXML
     private TextField txtVendedor;
 
+    private static Produto produtoVenda = new Produto();
+    double totalVenda;
+    double desconto;
+    private ArrayList<Produto> ArrayProdutos = new ArrayList<>();
+    
+    String[] nomesProdutos = new String[200];
+    String[] quantidade = new String[200];
+    
     @FXML
-    void actionAdicionar(ActionEvent event) {
-
+    void actionAdicionarProduto(ActionEvent event) {
+    	
+    	produtoVenda.setNome(txtProduto.getText());
+    	produtoVenda.setEstoque(txtQuantidade.getText());
+    	produtoVenda.setPrecoUn(txtValorUN.getText());
+    	produtoVenda.setPrecoTotal(txtValorTotal.getText());
+    	produtoVenda.setId("" + ArrayProdutos.size());
+    	String valor = txtValorTotal.getText();
+    	valor = valor.replace(",", ".");
+    	double precoTotal = Double.parseDouble(valor);
+    	totalVenda = totalVenda + precoTotal;
+    	valor = String.format("%.2f", totalVenda);
+    	txtValorTotal.setText("R$" + valor);
+    	
+    	valor = txtDesconto.getText();
+    	valor = valor.replace(",", ".");
+    	double valorDesconto = Double.parseDouble(valor);
+    	desconto = desconto + valorDesconto;
+    	
+    	nomesProdutos[ArrayProdutos.size()] = txtProduto.getText();
+    	quantidade[ArrayProdutos.size()] = txtQuantidade.getText();    
+    	
+    	ArrayProdutos.add(produtoVenda);
+    	carregarTableProdutos(ArrayProdutos);
     }
 
     @FXML
     void actionCancelar(ActionEvent event) {
-
+    	
     }
 
     @FXML
     void actionFinalizar(ActionEvent event) {
-
+    	Venda venda = new Venda();
+    	VendaDAO vendaDAO = new VendaDAO();
+    	Cliente cliente = new Cliente();
+    	ClienteDAO clienteDAO = new ClienteDAO();
+    	ProdutoDAO produtoDAO = new ProdutoDAO();
+    	Produto_VendaDAO produtoVendaDAO = new Produto_VendaDAO();
+    	ArrayList<Cliente> clientes = new ArrayList<>();
+    	
+    	cliente.setCpf(txtCPF.getText());
+    	clientes = clienteDAO.search(cliente);
+    	cliente = clientes.get(0);
+    	
+    	venda.setCodeFuncionario(controllerLogin.funcionario.getId());
+    	venda.setCodeCliente(cliente.getId());
+    	venda.setFormaDePagamento(choicePagamento.getValue().toString());
+    	venda.setDesconto("" + desconto);
+    	
+    	String valor = txtValorTotal.getText();
+    	valor = valor.replace(",", ".");
+    	double valorTotal = Double.parseDouble(valor);
+    	venda.setPrecoTotal("" + valorTotal);
+    	
+    	vendaDAO.create(venda);
+    	
+    	for(int i = 0; i< ArrayProdutos.size(); i++) {
+    		Produto produto = new Produto();
+    		Produto_Venda produtoVenda = new Produto_Venda();
+    		ArrayList<Produto> produtos = new ArrayList<>();
+    		produto.setNome(nomesProdutos[i]);
+    		produtos = produtoDAO.searchID(produto);
+    		produto = produtos.get(0);
+			produtoVenda.setCodeProduto(produto.getId());
+			produtoVenda.setCodeVenda(vendaDAO.readID());
+			produtoVenda.setQuantidade(quantidade[i]);
+			produtoVendaDAO.create(produtoVenda);
+			
+			txtCliente.setText(null);
+			txtCPF.setText(null);
+			txtProduto.setText(null);
+			txtCodProduto.setText(null);
+			txtValorUN.setText(null);
+			txtValorTotal.setText(null);
+			txtDesconto.setText(null);
+			txtQuantidade.setText(null);
+			txtPrecoTotal.setText(null);
+    	}
+    		ArrayProdutos = new ArrayList<Produto>();
+    		carregarTableProdutos(ArrayProdutos);
     }
     
     @FXML
@@ -167,25 +252,6 @@ public class controllerRegistroVenda implements Initializable{
     		txtValorUN.setText(null);
     	}
     }
-  
-    private static Produto produtoVenda = new Produto();
-    double totalVenda;
-    @FXML
-    void actionAdicionarProduto(ActionEvent event) {
-    	produtoVenda.setNome(txtProduto.getText());
-    	produtoVenda.setEstoque(txtQuantidade.getText());
-    	produtoVenda.setPrecoUn(txtValorUN.getText());
-    	produtoVenda.setPrecoTotal(txtTotalCompra.getText());
-    	String valor = txtTotalCompra.getText();
-    	valor = valor.replace(",", ".");
-    	double precoTotal = Double.parseDouble(txtTotalCompra.getText());
-    		
-    	totalVenda = totalVenda + precoTotal;
-    	txtTotalCompra.setText("R$"+totalVenda);
-    	ArrayProdutos.add(produtoVenda);
-    	
-    	carregarTableProdutos(ArrayProdutos);
-    }
 
     @FXML
     void actionDesconto(KeyEvent event) {
@@ -202,14 +268,14 @@ public class controllerRegistroVenda implements Initializable{
     		double desconto = (precoUN * quantidade) * 0.05;
     		double precoTotal = precoUN * quantidade - desconto;
     		txtDesconto.setText(""+String.format("%.2f", desconto));
-    		txtTotalCompra.setText(""+String.format("%.2f", precoTotal));
+    		txtValorTotal.setText(""+String.format("%.2f", precoTotal));
     	}else if(quantidade < 15) {
     		txtDesconto.setText("0,00");
     		double precoTotal = precoUN * quantidade;
-    		txtTotalCompra.setText(""+String.format("%.2f", precoTotal));
+    		txtValorTotal.setText(""+String.format("%.2f", precoTotal));
     	}else {
     		txtDesconto.setText(null);
-    		txtTotalCompra.setText(null);
+    		txtValorTotal.setText(null);
     	}
     	
     }
@@ -241,9 +307,8 @@ public class controllerRegistroVenda implements Initializable{
 		}
 		TextFields.bindAutoCompletion(txtCliente, cliente);
 	}	
-	
-    private ObservableList<Produto> ArrayProdutos;
-	public void carregarTableProdutos(ObservableList<Produto> arrayProdutos2) {
+
+	public void carregarTableProdutos(ArrayList<Produto> ArrayProdutos2) {
 		ObservableList<Produto> produtosVendidos = FXCollections.observableArrayList(ArrayProdutos);
 
 		columnIndice.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -254,7 +319,4 @@ public class controllerRegistroVenda implements Initializable{
 	
 		tableProdutos.setItems(produtosVendidos);
 	}
-	
-	
-	
 }	

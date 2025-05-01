@@ -19,13 +19,13 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <TableView fx:id="tableProdutos" layoutX="152.0" layoutY="335.0" prefHeight="299.0" prefWidth="609.0" style="-fx-background-color: #D9D9D9;">
+      <TableView fx:id="tableProdutos" layoutX="158.0" layoutY="350.0" prefHeight="262.0" prefWidth="501.0" style="-fx-background-color: #D9D9D9;">
         <columns>
           <TableColumn fx:id="columnIndice" minWidth="0.0" prefWidth="18.133392333984375" />
-            <TableColumn fx:id="columnProduto" minWidth="0.0" prefWidth="160.26670837402344" text="Produto" />
-            <TableColumn fx:id="columnQuantidade" minWidth="0.0" prefWidth="122.93328857421875" text="Quantidade" />
-            <TableColumn fx:id="columnPrecoUn" minWidth="0.0" prefWidth="156.53329467773438" text="Preço UN" />
-            <TableColumn fx:id="columnPrecoTotal" minWidth="0.0" prefWidth="150.666748046875" text="Preço Total" />
+            <TableColumn fx:id="columnProduto" minWidth="0.0" prefWidth="143.7333526611328" text="Produto" />
+            <TableColumn fx:id="columnQuantidade" minWidth="0.0" prefWidth="117.33334350585938" text="Quantidade" />
+            <TableColumn fx:id="columnPrecoUn" minWidth="0.0" prefWidth="114.39999389648438" text="Preço UN" />
+            <TableColumn fx:id="columnPrecoTotal" minWidth="0.0" prefWidth="125.8665771484375" text="Preço Total" />
         </columns>
       </TableView>
       <Line endX="739.2000732421875" layoutX="300.0" layoutY="71.0" startX="-146.26663208007812" stroke="BLUEVIOLET" strokeWidth="4.0" />
@@ -44,7 +44,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <Button fx:id="btAdicionar" alignment="BASELINE_LEFT" layoutX="592.0" layoutY="254.0" mnemonicParsing="false" onAction="#actionAdicionarProduto" prefHeight="53.0" prefWidth="172.0" style="-fx-background-color: #8a2be2; -fx-background-radius: 15;" styleClass="r" text="ADICIONAR" textFill="WHITE">
+      <Button fx:id="btAdicionar" alignment="BASELINE_LEFT" layoutX="664.0" layoutY="261.0" mnemonicParsing="false" onAction="#actionAdicionarProduto" prefHeight="53.0" prefWidth="172.0" style="-fx-background-color: #8a2be2; -fx-background-radius: 15;" styleClass="r" text="ADICIONAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -59,13 +59,13 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtTotalCompra" layoutX="823.0" layoutY="537.0" prefHeight="98.0" prefWidth="229.0" promptText="VALOR" style="-fx-background-radius: 15;">
+      <TextField fx:id="txtValorTotal" layoutX="823.0" layoutY="537.0" prefHeight="98.0" prefWidth="229.0" promptText="VALOR" style="-fx-background-radius: 15;">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="choicePagamento" layoutX="815.0" layoutY="441.0" prefHeight="52.0" prefWidth="234.0" />
-      <TextField fx:id="txtDesconto" layoutX="815.0" layoutY="359.0" prefHeight="52.0" prefWidth="234.0" promptText="desconto" style="-fx-background-radius: 15;">
+      <ChoiceBox fx:id="choicePagamento" layoutX="664.0" layoutY="180.0" prefHeight="52.0" prefWidth="172.0" />
+      <TextField fx:id="txtDesconto" layoutX="870.0" layoutY="180.0" prefHeight="52.0" prefWidth="166.0" promptText="desconto" style="-fx-background-radius: 15;">
          <font>
             <Font size="24.0" />
          </font>
@@ -80,7 +80,7 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="821.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total da compra" wrappingWidth="211.443359375">
+      <Text layoutX="821.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALOR TOTAL" wrappingWidth="211.443359375">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
@@ -90,22 +90,22 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="815.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forma de PGTO">
+      <Text layoutX="664.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forma de PGTO">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="815.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desconto">
+      <Text layoutX="870.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desconto">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="txtValorUN" layoutX="815.0" layoutY="276.0" prefHeight="52.0" prefWidth="234.0" promptText="valor unitario" style="-fx-background-radius: 15;">
+      <TextField fx:id="txtValorUN" layoutX="860.0" layoutY="358.0" prefHeight="52.0" prefWidth="166.0" promptText="valor unitario" style="-fx-background-radius: 15;">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Text layoutX="815.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor Unitário">
+      <Text layoutX="860.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor Unitário">
          <font>
             <Font size="24.0" />
          </font>
@@ -115,22 +115,22 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="txtQuantidade" layoutX="816.0" layoutY="193.0" onKeyTyped="#actionDesconto" prefHeight="52.0" prefWidth="234.0" promptText="quantidade" style="-fx-background-radius: 15;">
+      <TextField fx:id="txtQuantidade" layoutX="672.0" layoutY="360.0" onKeyTyped="#actionDesconto" prefHeight="52.0" prefWidth="156.0" promptText="quantidade" style="-fx-background-radius: 15;">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Text layoutX="816.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade">
+      <Text layoutX="672.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="txtCodProduto" layoutX="588.0" layoutY="183.0" prefHeight="52.0" prefWidth="176.0" promptText="quantidade" style="-fx-background-radius: 15;">
+      <TextField fx:id="txtCodProduto" layoutX="864.0" layoutY="263.0" prefHeight="52.0" prefWidth="176.0" promptText="quantidade" style="-fx-background-radius: 15;">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Text layoutX="589.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo">
+      <Text layoutX="865.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo">
          <font>
             <Font size="24.0" />
          </font>
@@ -140,5 +140,15 @@
             <Font size="24.0" />
          </font>
       </TextField>
+      <TextField fx:id="txtPrecoTotal" layoutX="850.0" layoutY="444.0" onKeyTyped="#actionDesconto" prefHeight="52.0" prefWidth="179.0" promptText="valor" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Text layoutX="850.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço Total">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
